@@ -1,11 +1,9 @@
-FROM python:3.9-slim
+FROM python:3.10
 
 WORKDIR /app
+COPY . .
 
-COPY . /app
-
-# The baseline depends only on standard libraries, but we might want useful extensions.
-# Since OpenEnv usually deals with numpy or RL stuff, we install some basics.
-RUN pip install --no-cache-dir numpy
+RUN pip install --upgrade pip
+RUN pip install numpy fastapi uvicorn
 
 CMD ["python", "inference.py", "--all"]
