@@ -1,48 +1,72 @@
-# MedAlloc: Hospital Emergency Resource Allocation RL Environment
+# MedAlloc: RL-Based Hospital Resource Allocation Environment
 
-MedAlloc is a complex, deterministic Reinforcement Learning environment where an agent acts as a hospital emergency resource allocator. It manages doctors and beds, assigning them to incoming patients of varying severities.
+## Problem Description
 
-## Problem Statement
+MedAlloc simulates a hospital emergency system where an AI agent allocates doctors to patients based on urgency and resource availability.
 
-The environment simulates a hospital ward:
-- Patients arrive dynamically with a severity `1-5` and wait in a queue.
-- The hospital has limited resources (beds and doctors).
-- The agent must allocate resources carefully to optimize treatment while minimizing wait times.
+## Environment Overview
+
+The environment follows OpenEnv API:
+
+* reset()
+* step(action)
+* state()
 
 ## State Space
-The `state()` method returns a dictionary:
-- `queue`: Matrix of 10 rows (patients). Each row has `[severity, wait_time, has_doctor, has_bed]`.
-- `queue_length`: integer (0-10)
-- `available_doctors`: integer
-- `available_beds`: integer
-- `timestep`: integer
+
+The state includes:
+
+* number of patients
+* number of doctors
+
+Example:
+{
+"patients": 5,
+"doctors": 2
+}
 
 ## Action Space
-A discrete action space `[0, 30]`:
-- `0-9`: Assign a doctor to patient at index `i`.
-- `10-19`: Assign a bed to patient at index `i`.
-- `20-29`: Delay patient at index `i` (leaves them in queue for later, wait time increases).
-- `30`: Wait (do nothing).
+
+Agent actions:
+
+* assign doctor
+* delay patient
 
 ## Reward Function
-Rewards are calculated deterministically:
-- `+1.0`: Correct, complete treatment of high-priority patient.
-- `+0.5`: Complete treatment of low-priority patient.
-- `-1.0`: Incorrect prioritization (e.g. treating severity 1 while severity 5 waits).
-- `-0.5`: Increased waiting time > 5.
-- `-0.1`: Invalid assignment actions.
 
-## Determinism
-To satisfy OpenEnv guidelines, both patient generation and environment progression are 100% deterministic pseudo-random sequences (without using `random` to avoid seed leakages).
+* positive reward for correct treatment
+* negative reward for delays
+* score range: 0.0 to 1.0
 
-## Quick Start
-Run the baseline heuristic agent across all tasks:
-```bash
+## Tasks
+
+* Easy: low load
+* Medium: moderate load
+* Hard: high load
+
+## Grading
+
+Evaluation based on:
+
+* efficiency
+* resource usage
+* completion
+
+## API Endpoints
+
+* /reset
+* /step
+* /state
+
+## Setup Instructions
+
+Run locally:
+pip install fastapi uvicorn numpy
 python inference.py --all
-```
 
-## Structure
-`env/` - The environment logic.
-`tasks/` - Three difficulty levels: Easy, Medium, Hard.
-`graders/` - Deterministic grader scoring from `[0.0, 1.0]`.
-`models/` - Baseline reference location.
+Run API:
+uvicorn app:app --host 0.0.0.0 --port 7860
+
+## Deployment
+
+Docker-based deployment on Hugging Face Spaces.
