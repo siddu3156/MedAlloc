@@ -7,4 +7,4 @@ RUN pip install --upgrade pip
 RUN pip install numpy
 
 # keep container alive (VERY IMPORTANT)
-CMD ["tail", "-f", "/dev/null"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
