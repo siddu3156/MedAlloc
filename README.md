@@ -1,18 +1,22 @@
 # MedAlloc: RL-Based Hospital Resource Allocation Environment
 
-## Problem Description
+## 🧠 Problem Description
 
 MedAlloc simulates a hospital emergency system where an AI agent allocates doctors to patients based on urgency and resource availability.
 
-## Environment Overview
+---
+
+## ⚙️ Environment Overview
 
 The environment follows OpenEnv API:
 
-* reset()
-* step(action)
-* state()
+* `reset()`
+* `step(action)`
+* `state()`
 
-## State Space
+---
+
+## 📊 State Space
 
 The state includes:
 
@@ -20,31 +24,39 @@ The state includes:
 * number of doctors
 
 Example:
-{
-"patients": 5,
-"doctors": 2
-}
 
-## Action Space
+```json
+{ "patients": 5, "doctors": 2 }
+```
+
+---
+
+## 🎮 Action Space
 
 Agent actions:
 
 * assign doctor
 * delay patient
 
-## Reward Function
+---
+
+## 🎯 Reward Function
 
 * positive reward for correct treatment
 * negative reward for delays
-* score range: 0.0 to 1.0
+* score range: **0.0 to 1.0**
 
-## Tasks
+---
+
+## 🧪 Tasks
 
 * Easy: low load
 * Medium: moderate load
 * Hard: high load
 
-## Grading
+---
+
+## 📏 Grading
 
 Evaluation based on:
 
@@ -52,21 +64,33 @@ Evaluation based on:
 * resource usage
 * completion
 
-## API Endpoints
+---
 
-* /reset
-* /step
-* /state
+## 🔗 API Endpoints
 
-## Setup Instructions
+* `/reset`
+* `/step`
+* `/state`
 
-Run locally:
+---
+
+## 🚀 Setup Instructions
+
+### Run locally:
+
+```bash
 pip install fastapi uvicorn numpy
 python inference.py --all
+```
 
-Run API:
+### Run API:
+
+```bash
 uvicorn app:app --host 0.0.0.0 --port 7860
+```
 
-## Deployment
+---
+
+## 🐳 Deployment
 
 Docker-based deployment on Hugging Face Spaces.
