@@ -4,7 +4,8 @@ WORKDIR /app
 COPY . .
 
 RUN pip install --upgrade pip
-RUN pip install numpy
+RUN pip install fastapi uvicorn numpy
 
-# keep container alive (VERY IMPORTANT)
+EXPOSE 7860
+
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
