@@ -4,6 +4,7 @@ WORKDIR /app
 COPY . .
 
 RUN pip install --upgrade pip
-RUN pip install numpy fastapi uvicorn
+RUN pip install numpy
 
-CMD ["python", "inference.py", "--all"]
+# keep container alive (VERY IMPORTANT)
+CMD ["tail", "-f", "/dev/null"]
