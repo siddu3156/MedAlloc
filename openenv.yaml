@@ -1,0 +1,15 @@
+version: 1.0
+name: "MedAlloc"
+description: "Hospital Emergency Resource Allocation System RL Environment"
+env_class: "env.medalloc_env.MedAllocEnv"
+tasks:
+  - name: "task_0"
+    class: "tasks.tasks.task_0"
+    description: "Easy - Low inflow, no spikes"
+  - name: "task_1"
+    class: "tasks.tasks.task_1"
+    description: "Medium - Moderate inflow"
+  - name: "task_2"
+    class: "tasks.tasks.task_2"
+    description: "Hard - High inflow + emergency spikes"
+grader: "graders.grader.grade"
